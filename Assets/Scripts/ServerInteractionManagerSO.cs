@@ -72,6 +72,7 @@ namespace Assets.Scripts
                         }
                         else
                         {
+                            _currentSessionID = string.Empty;
                             errorEvent.Invoke();
                         }
                     }
