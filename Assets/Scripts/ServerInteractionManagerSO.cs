@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -58,26 +60,21 @@ namespace Assets.Scripts
             {
                 if (!string.IsNullOrEmpty(_currentSessionID))
                 {
-                    WWWForm form = new WWWForm();
-                    form.AddField("user", _currentSessionID);
+                    var item = new Message();
+                    item.user = new User();
+                    item.user.session_id = _currentSessionID; ;
 
-                    using (UnityWebRequest webRequest = UnityWebRequest.Post(PingApi, form))
-                    {
-                        yield return webRequest.SendWebRequest();
+                    var json = JsonConvert.SerializeObject(item);
 
-                        Debug.Log(webRequest.responseCode);
+                    Debug.Log(json);
 
-                        if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
-                        {
-                            _serverInteractionViewModel.HandleSesseionReceived();
-                            succesEvent.Invoke();
-                        }
-                        else
-                        {
-                            _currentSessionID = string.Empty;
-                            errorEvent.Invoke();
-                        }
-                    }
+                    var request = new UnityWebRequest(PingApi, "POST");
+                    byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+                    request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+                    request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+                    request.SetRequestHeader("Content-Type", "application/json");
+                    yield return request.SendWebRequest();
+                    Debug.Log("Status Code: " + request.responseCode);
                 }
                 else
                 {
@@ -87,5 +84,15 @@ namespace Assets.Scripts
                 yield return new WaitForSeconds(3f);
             }
         }
+    }
+
+    public class Message
+    {
+        public User user;
+    }
+
+    public class User
+    {
+        public string session_id;
     }
 }
