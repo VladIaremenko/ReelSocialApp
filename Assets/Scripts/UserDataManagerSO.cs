@@ -40,12 +40,12 @@ namespace Assets.Scripts
 
         private void HandleLoginError()
         {
-            Debug.Log("Error");
+            _loginPanelViewModel.CurrentLoginMessage.Value = "Error";
         }
 
         private void HandleLoginSucces()
         {
-            Debug.Log("Success");
+            _loginPanelViewModel.CurrentLoginMessage.Value = "Success";
         }
     }
 }

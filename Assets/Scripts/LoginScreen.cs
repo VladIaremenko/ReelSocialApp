@@ -12,6 +12,7 @@ namespace Assets.Scripts
         [Header("UI")]
         [SerializeField] private TMP_InputField _loginInput;
         [SerializeField] private TMP_InputField _passwordInput;
+        [SerializeField] private TextMeshProUGUI _statusText;
         [SerializeField] private Button _loginButton;
 
         private void Awake()
@@ -23,12 +24,19 @@ namespace Assets.Scripts
         {
             _loginPanelViewModel.CurrentPassword.AddListener(HandlePasswordInput);
             _loginPanelViewModel.CurrentUsername.AddListener(HandleUsernameInput);
+            _loginPanelViewModel.CurrentLoginMessage.AddListener(HandleLoginMessage);
         }
 
         private void OnDisable()
         {
             _loginPanelViewModel.CurrentPassword.RemoveListener(HandlePasswordInput);
             _loginPanelViewModel.CurrentUsername.RemoveListener(HandleUsernameInput);
+            _loginPanelViewModel.CurrentLoginMessage.RemoveListener(HandleLoginMessage);
+        }
+
+        private void HandleLoginMessage(string data)
+        {
+            _statusText.text = data;
         }
 
         private void HandleUsernameInput(string obj)
@@ -45,7 +53,8 @@ namespace Assets.Scripts
         }
 
         private void HandleLogin()
-        { 
+        {
+            _loginPanelViewModel.CurrentLoginMessage.Value = "Waiting";
             _loginPanelViewModel.SubmitData(_loginInput.text, _passwordInput.text);
         }
     }

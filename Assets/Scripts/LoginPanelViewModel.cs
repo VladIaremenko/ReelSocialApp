@@ -10,6 +10,8 @@ namespace Assets.Scripts
         public ObservableVariable<string> CurrentUsername = new ObservableVariable<string>();
         public ObservableVariable<string> CurrentPassword = new ObservableVariable<string>();
 
+        public ObservableVariable<string> CurrentLoginMessage = new ObservableVariable<string>();
+
         public event Action<SubmitDataContainer> SumbitLoginDataEvent = (x) => { };
 
         public void SubmitData(string username, string password)
