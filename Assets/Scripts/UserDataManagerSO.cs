@@ -6,6 +6,8 @@ namespace Assets.Scripts
     public class UserDataManagerSO : ScriptableObject
     {
         [SerializeField] private StorageSO _storageSO;
+        [SerializeField] private ServerInteractionManagerSO _serverInteractionManagerSO;
+
         [SerializeField] private LoginPanelViewModel _loginPanelViewModel;
 
         private void OnDisable()
@@ -31,6 +33,8 @@ namespace Assets.Scripts
 
             _loginPanelViewModel.CurrentUsername.Value = data.Username;
             _loginPanelViewModel.CurrentPassword.Value = data.Password;
+
+            _serverInteractionManagerSO.TryLogin(data.Username, data.Password);
         }
     }
 }
