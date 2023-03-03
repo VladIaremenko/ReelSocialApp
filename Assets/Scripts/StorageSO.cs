@@ -5,23 +5,23 @@ namespace Assets.Scripts
     [CreateAssetMenu(fileName = "StorageSO", menuName = "SO/Storage/StorageSO", order = 1)]
     public class StorageSO : ScriptableObject
     {
-        private readonly string LoginKey = "LoginKey";
+        private readonly string UsernameKey = "UsernameKey";
         private readonly string PasswordKey = "PasswordKey";
 
         public void Init()
         {
-            _login = PlayerPrefs.GetString(LoginKey, string.Empty);
+            _username = PlayerPrefs.GetString(UsernameKey, string.Empty);
             _password = PlayerPrefs.GetString(PasswordKey, string.Empty);
         }
 
-        private string _login;
-        public string Login
+        private string _username;
+        public string Username
         {
-            get { return _login; }
+            get { return _username; }
             set
             {
-                PlayerPrefs.SetString(LoginKey, value);
-                _login = value;
+                PlayerPrefs.SetString(UsernameKey, value);
+                _username = value;
             }
         }
 
@@ -31,7 +31,7 @@ namespace Assets.Scripts
             get { return _password; }
             set
             {
-                PlayerPrefs.SetString(Password, value);
+                PlayerPrefs.SetString(PasswordKey, value);
                 _password = value;
             }
         }
