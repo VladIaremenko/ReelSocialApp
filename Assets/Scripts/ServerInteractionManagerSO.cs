@@ -9,6 +9,8 @@ namespace Assets.Scripts
     [CreateAssetMenu(fileName = "ServerInteractionManagerSO", menuName = "SO/Web/ServerInteractionManagerSO", order = 1)]
     public class ServerInteractionManagerSO : ScriptableObject
     {
+        [SerializeField] private ServerInteractionViewModel _serverInteractionViewModel;
+
         private readonly string LoginApi = "https://yareel.com/src/a.php?email=<email>&pass=<pass>";
         private readonly string PingApi = "https://server.yareel.com/users/ping";
 
@@ -45,6 +47,7 @@ namespace Assets.Scripts
                 }
                 else
                 {
+                    _serverInteractionViewModel.HandleSessionLost();
                     errorEvent.Invoke();
                 }
             }
@@ -67,7 +70,7 @@ namespace Assets.Scripts
 
                         if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                         {
-                            _currentSessionID = webRequest.downloadHandler.text;
+                            _serverInteractionViewModel.HandleSesseionReceived();
                             succesEvent.Invoke();
                         }
                         else
@@ -76,6 +79,10 @@ namespace Assets.Scripts
                             errorEvent.Invoke();
                         }
                     }
+                }
+                else
+                {
+                    _serverInteractionViewModel.HandleSessionLost();
                 }
 
                 yield return new WaitForSeconds(3f);

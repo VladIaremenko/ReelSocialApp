@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d0c896656f132947a7039fb24d01fda, type: 3}
-  m_Name: ServerInteractionManagerSO
+  m_Script: {fileID: 11500000, guid: 7e8c92fd09ed7b54390c9f077bf9f694, type: 3}
+  m_Name: ServerInteractionViewModel
   m_EditorClassIdentifier: 
-  _serverInteractionViewModel: {fileID: 11400000, guid: 748296908ef6b69489623093caa659c6,
-    type: 2}
