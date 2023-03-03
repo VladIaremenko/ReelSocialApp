@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -33,8 +34,18 @@ namespace Assets.Scripts
 
             _loginPanelViewModel.CurrentUsername.Value = data.Username;
             _loginPanelViewModel.CurrentPassword.Value = data.Password;
+            
+            _serverInteractionManagerSO.TryLogin(data.Username, data.Password, HandleLoginSucces, HandleLoginError);
+        }
 
-            _serverInteractionManagerSO.TryLogin(data.Username, data.Password);
+        private void HandleLoginError()
+        {
+            Debug.Log("Error");
+        }
+
+        private void HandleLoginSucces()
+        {
+            Debug.Log("Success");
         }
     }
 }
