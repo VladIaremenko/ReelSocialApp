@@ -12,7 +12,9 @@ namespace Assets.Scripts
         {
             _storageSO.Init();
             _userDataManagerSO.Init();
-            _serverInteractionManagerSO.Init(this);
+            _serverInteractionManagerSO.Init(this
+                , () => { Debug.Log("Success"); }
+                , () => { Debug.Log("Error"); });
         }
     }
 }

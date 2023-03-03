@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,6 +10,8 @@ namespace Assets.Scripts
     public class ServerInteractionManagerSO : ScriptableObject
     {
         private readonly string LoginApi = "https://yareel.com/src/a.php?email=<email>&pass=<pass>";
+        private readonly string PingApi = "https://server.yareel.com/users/ping";
+
         private string _currentSessionID;
         private MonoBehaviour _monoBehaviour;
 
@@ -18,14 +21,16 @@ namespace Assets.Scripts
 
             Debug.Log(loginStr);
 
-            _monoBehaviour.StartCoroutine(LoginRequest(loginStr, succesEvent, errorEvent));        
+            _monoBehaviour.StartCoroutine(LoginRequest(loginStr, succesEvent, errorEvent));
         }
 
-        public void Init(MonoBehaviour monoBehaviour)
+        public void Init(MonoBehaviour monoBehaviour, Action successEvent, Action errorEvent)
         {
+            _currentSessionID = string.Empty;
+
             _monoBehaviour = monoBehaviour;
 
-            _monoBehaviour.StartCoroutine(Ping(null, null));
+            _monoBehaviour.StartCoroutine(Ping(successEvent, errorEvent));
         }
 
         private IEnumerator LoginRequest(string uri, Action succesEvent, Action errorEvent)
@@ -34,11 +39,8 @@ namespace Assets.Scripts
             {
                 // Request and wait for the desired page.
                 yield return webRequest.SendWebRequest();
- 
-                string[] pages = uri.Split('/');
-                int page = pages.Length - 1;
 
-                if(webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
                     _currentSessionID = webRequest.downloadHandler.text;
                     succesEvent.Invoke();
@@ -54,15 +56,17 @@ namespace Assets.Scripts
         {
             while (true)
             {
-                Debug.Log("Ping");
+                Debug.Log(_currentSessionID);
 
-/*                using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+                WWWForm form = new WWWForm();
+                form.AddField("user", _currentSessionID);
+
+                using (UnityWebRequest webRequest = UnityWebRequest.Post(PingApi, form))
                 {
-                    // Request and wait for the desired page.
+                    webRequest.SetRequestHeader("Content-Type", "application/json");
                     yield return webRequest.SendWebRequest();
 
-                    string[] pages = uri.Split('/');
-                    int page = pages.Length - 1;
+                    Debug.Log(webRequest.responseCode);
 
                     if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                     {
@@ -73,7 +77,7 @@ namespace Assets.Scripts
                     {
                         errorEvent.Invoke();
                     }
-                }*/
+                }
 
                 yield return new WaitForSeconds(3f);
             }
