@@ -19,8 +19,6 @@ namespace Assets.Scripts
         {
             var loginStr = LoginApi.Replace("<pass>", password).Replace("<email>", username);
 
-            Debug.Log(loginStr);
-
             _monoBehaviour.StartCoroutine(LoginRequest(loginStr, succesEvent, errorEvent));
         }
 
@@ -56,26 +54,26 @@ namespace Assets.Scripts
         {
             while (true)
             {
-                Debug.Log(_currentSessionID);
-
-                WWWForm form = new WWWForm();
-                form.AddField("user", _currentSessionID);
-
-                using (UnityWebRequest webRequest = UnityWebRequest.Post(PingApi, form))
+                if (!string.IsNullOrEmpty(_currentSessionID))
                 {
-                    webRequest.SetRequestHeader("Content-Type", "application/json");
-                    yield return webRequest.SendWebRequest();
+                    WWWForm form = new WWWForm();
+                    form.AddField("user", _currentSessionID);
 
-                    Debug.Log(webRequest.responseCode);
+                    using (UnityWebRequest webRequest = UnityWebRequest.Post(PingApi, form))
+                    {
+                        yield return webRequest.SendWebRequest();
 
-                    if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
-                    {
-                        _currentSessionID = webRequest.downloadHandler.text;
-                        succesEvent.Invoke();
-                    }
-                    else
-                    {
-                        errorEvent.Invoke();
+                        Debug.Log(webRequest.responseCode);
+
+                        if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                        {
+                            _currentSessionID = webRequest.downloadHandler.text;
+                            succesEvent.Invoke();
+                        }
+                        else
+                        {
+                            errorEvent.Invoke();
+                        }
                     }
                 }
 
