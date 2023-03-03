@@ -18,15 +18,17 @@ namespace Assets.Scripts
 
             Debug.Log(loginStr);
 
-            _monoBehaviour.StartCoroutine(GetRequest(loginStr, succesEvent, errorEvent));        
+            _monoBehaviour.StartCoroutine(LoginRequest(loginStr, succesEvent, errorEvent));        
         }
 
         public void Init(MonoBehaviour monoBehaviour)
         {
             _monoBehaviour = monoBehaviour;
+
+            _monoBehaviour.StartCoroutine(Ping(null, null));
         }
 
-        private IEnumerator GetRequest(string uri, Action succesEvent, Action errorEvent)
+        private IEnumerator LoginRequest(string uri, Action succesEvent, Action errorEvent)
         {
             using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
             {
@@ -45,6 +47,35 @@ namespace Assets.Scripts
                 {
                     errorEvent.Invoke();
                 }
+            }
+        }
+
+        private IEnumerator Ping(Action succesEvent, Action errorEvent)
+        {
+            while (true)
+            {
+                Debug.Log("Ping");
+
+/*                using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+                {
+                    // Request and wait for the desired page.
+                    yield return webRequest.SendWebRequest();
+
+                    string[] pages = uri.Split('/');
+                    int page = pages.Length - 1;
+
+                    if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                    {
+                        _currentSessionID = webRequest.downloadHandler.text;
+                        succesEvent.Invoke();
+                    }
+                    else
+                    {
+                        errorEvent.Invoke();
+                    }
+                }*/
+
+                yield return new WaitForSeconds(3f);
             }
         }
     }
