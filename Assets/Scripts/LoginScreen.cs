@@ -25,6 +25,8 @@ namespace Assets.Scripts
             _loginPanelViewModel.CurrentPassword.AddListener(HandlePasswordInput);
             _loginPanelViewModel.CurrentUsername.AddListener(HandleUsernameInput);
             _loginPanelViewModel.CurrentLoginMessage.AddListener(HandleLoginMessage);
+
+            HandleLoginMessage(string.Empty);
         }
 
         private void OnDisable()
