@@ -11,6 +11,8 @@ namespace Assets.Scripts
         [SerializeField] protected UserViewModel _userViewModel;
         [SerializeField] private LoginPanelViewModel _loginPanelViewModel;
 
+        private User _currentUserData;
+
         private void OnDisable()
         {
             _loginPanelViewModel.SumbitLoginDataEvent -= HandleLoginSubmitEvent;
@@ -50,7 +52,8 @@ namespace Assets.Scripts
 
         public void HandleUserData(User user)
         {
-            _userViewModel.CurrentUserData.Value = user;
+            _currentUserData = user;
+            _userViewModel.CurrentUserData.Value = _currentUserData;
         }
     }
 }
