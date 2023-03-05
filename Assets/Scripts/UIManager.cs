@@ -13,6 +13,7 @@ namespace Assets.Scripts
         [SerializeField] private GameObject _loginPagePanel;
         [SerializeField] private GameObject _exchangePanel;
         [SerializeField] private GameObject _exchangePopupPanel;
+        [SerializeField] private UniversalConfirmationPopup _universalConfirmationPopup;
 
         private void Awake()
         {
@@ -38,9 +39,10 @@ namespace Assets.Scripts
             _uiViewModel.OnConfirmationPopupEvent -= HancleConfirmationPopupEvent;
         }
 
-        private void HancleConfirmationPopupEvent(string str)
+        private void HancleConfirmationPopupEvent(bool state, string str)
         {
-            
+            _universalConfirmationPopup.gameObject.SetActive(state);
+            _universalConfirmationPopup.UpdateView(str);
         }
 
         private void HandleShowExchangePopupEvent(bool state)

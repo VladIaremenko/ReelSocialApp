@@ -164,7 +164,7 @@ namespace Assets.Scripts
 
                 if (webRequest.responseCode == succesResponceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
-                    _uiViewModel.HandleExchangeResult(webRequest.downloadHandler.text);
+                    _uiViewModel.ShowExchangeResultPopup(webRequest.downloadHandler.text);
                 }
             }
         }

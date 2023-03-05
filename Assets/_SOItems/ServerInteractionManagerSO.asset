@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _serverInteractionViewModel: {fileID: 11400000, guid: 748296908ef6b69489623093caa659c6,
     type: 2}
+  _uiViewModel: {fileID: 11400000, guid: b807c2ae207486743a054530746366e0, type: 2}
   _exchangeManagerSO: {fileID: 11400000, guid: f5a6ddf414ae06d4e95afacb15299784, type: 2}
   _userDataManagerSO: {fileID: 11400000, guid: 470e737edf518454e8febe29ce9a0578, type: 2}
