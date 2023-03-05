@@ -3273,7 +3273,6 @@ GameObject:
   - component: {fileID: 7558702440603330879}
   - component: {fileID: 7558702440603330878}
   - component: {fileID: 7558702440603330872}
-  - component: {fileID: 1823595616}
   - component: {fileID: 1823595617}
   m_Layer: 5
   m_Name: LeftPanel.Screen
@@ -3282,25 +3281,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1823595616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823595615}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72fc9a24616bbca418681c14e40f6983, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftPanelButton: {fileID: 7558702440124904199}
-  closeButton: {fileID: 7558702440390785034}
-  leftPanelObject: {fileID: 1823548593}
-  goldButton: {fileID: 7558702440626410479}
-  goldCountLabel: {fileID: 7558702438914725406}
-  coinsButton: {fileID: 7558702440087297464}
-  coinsCountLabel: {fileID: 7558702439655993406}
 --- !u!114 &1823595617
 MonoBehaviour:
   m_ObjectHideFlags: 0
