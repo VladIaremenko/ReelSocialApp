@@ -28,6 +28,7 @@ namespace Assets.Scripts
 
         private void HandleConfirmation()
         {
+            _exchangeViewModel.ConcfirmExchange();
             _uiViewModel.ClosePopupEvent();
         }
 

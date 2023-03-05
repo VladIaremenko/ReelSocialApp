@@ -9,6 +9,8 @@ namespace Assets.Scripts
         public event Action<bool> OnShowExchangePanelEvent = (x) => { };
         public event Action<bool> OnShowExchangePopupEvent = (x) => { };
 
+        public event Action<string> OnConfirmationPopupEvent = (x) => { };
+
         public void ShowExchangePanel()
         {
             OnShowExchangePanelEvent.Invoke(true);
@@ -27,6 +29,11 @@ namespace Assets.Scripts
         public void ClosePopupEvent()
         {
             OnShowExchangePopupEvent.Invoke(false);
+        }
+
+        public void HandleExchangeResult(string text)
+        {
+            OnConfirmationPopupEvent.Invoke(text);
         }
     }
 }

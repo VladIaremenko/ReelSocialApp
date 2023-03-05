@@ -11,10 +11,16 @@ namespace Assets.Scripts
         public ObservableVariable<ExchangeData> CurrentExchangeData = new ObservableVariable<ExchangeData>();
 
         public event Action<int> HandleExchangeItemClickEvent = (x) => { };
+        public event Action OnConfirmExchangeEvent = () => { };
 
         public void HandleExchangeItemClick(int id)
         {
             HandleExchangeItemClickEvent.Invoke(id);
+        }
+
+        public void ConcfirmExchange()
+        {
+            OnConfirmExchangeEvent.Invoke();
         }
     }
 }

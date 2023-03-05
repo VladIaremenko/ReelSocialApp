@@ -13,8 +13,8 @@ namespace Assets.Scripts
     [CreateAssetMenu(fileName = "ServerInteractionManagerSO", menuName = "SO/Web/ServerInteractionManagerSO", order = 1)]
     public class ServerInteractionManagerSO : ScriptableObject
     {
-
         [SerializeField] private ServerInteractionViewModel _serverInteractionViewModel;
+        [SerializeField] private UIViewModel _uiViewModel;
         [SerializeField] private ExchangeManagerSO _exchangeManagerSO;
         [SerializeField] private UserDataManagerSO _userDataManagerSO;
 
@@ -44,7 +44,7 @@ namespace Assets.Scripts
             _monoBehaviour.StartCoroutine(GetExchangeData());
         }
 
-        public void HandleExchangeItemClick(int id)
+        public void HandleExchangeItem(int id)
         {
             _monoBehaviour.StartCoroutine(HandleExchange(id));
         }
@@ -148,7 +148,7 @@ namespace Assets.Scripts
 
         private IEnumerator HandleExchange(int id)
         {
-            id = 0;
+            id++;
 
             var msg = new PingRequestData(new User() { SessionId = _currentSessionID, ExchangeItemId = id });
 
@@ -164,19 +164,7 @@ namespace Assets.Scripts
 
                 if (webRequest.responseCode == succesResponceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
-                    try
-                    {
-
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                }
-                else
-                {
-                    _serverInteractionViewModel.HandleSessionLost();
-                    _currentSessionID = string.Empty;
+                    _uiViewModel.HandleExchangeResult(webRequest.downloadHandler.text);
                 }
             }
         }

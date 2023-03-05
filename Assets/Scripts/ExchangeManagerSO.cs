@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -10,6 +11,7 @@ namespace Assets.Scripts
         [SerializeField] private UIViewModel _uiViewModel;
 
         private CoinsValues _currentCoinsValues;
+        private int _currentExchangeId;
 
         public void Init()
         {
@@ -20,16 +22,24 @@ namespace Assets.Scripts
         private void OnEnable()
         {
             _exchangeViewModel.HandleExchangeItemClickEvent += HandleExchangeItemClick;
+            _exchangeViewModel.OnConfirmExchangeEvent += HandleConfirmExchange;
         }
 
         private void OnDisable()
         {
             _exchangeViewModel.HandleExchangeItemClickEvent -= HandleExchangeItemClick;
+            _exchangeViewModel.OnConfirmExchangeEvent -= HandleConfirmExchange;
+        }
+
+        private void HandleConfirmExchange()
+        {
+            _serverInteractionManager.HandleExchangeItem(_currentExchangeId);
         }
 
         private void HandleExchangeItemClick(int id)
         {
             _exchangeViewModel.CurrentExchangeData.Value = _currentCoinsValues.GetList()[id];
+            _currentExchangeId = id;
             _uiViewModel.ShowExchangePopup();
         }
 

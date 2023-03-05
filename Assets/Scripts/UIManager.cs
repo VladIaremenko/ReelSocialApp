@@ -26,6 +26,7 @@ namespace Assets.Scripts
             _serverInteractionViewModel.OnLostSessionEvent += HandleLostSessionEvent;
             _uiViewModel.OnShowExchangePanelEvent += HandleShowExchangePanelEvent;
             _uiViewModel.OnShowExchangePopupEvent += HandleShowExchangePopupEvent;
+            _uiViewModel.OnConfirmationPopupEvent += HancleConfirmationPopupEvent;
         }
 
         private void OnDisable()
@@ -34,6 +35,12 @@ namespace Assets.Scripts
             _serverInteractionViewModel.OnLostSessionEvent -= HandleLostSessionEvent;
             _uiViewModel.OnShowExchangePanelEvent -= HandleShowExchangePanelEvent;
             _uiViewModel.OnShowExchangePopupEvent -= HandleShowExchangePopupEvent;
+            _uiViewModel.OnConfirmationPopupEvent -= HancleConfirmationPopupEvent;
+        }
+
+        private void HancleConfirmationPopupEvent(string str)
+        {
+            
         }
 
         private void HandleShowExchangePopupEvent(bool state)
