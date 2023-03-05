@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -11,6 +12,7 @@ namespace Assets.Scripts
         [Header("Panels")]
         [SerializeField] private GameObject _loginPagePanel;
         [SerializeField] private GameObject _exchangePanel;
+        [SerializeField] private GameObject _exchangePopupPanel;
 
         private void Awake()
         {
@@ -23,6 +25,7 @@ namespace Assets.Scripts
             _serverInteractionViewModel.OnReceivedSessionEvent += HandleRecieveSession;
             _serverInteractionViewModel.OnLostSessionEvent += HandleLostSessionEvent;
             _uiViewModel.OnShowExchangePanelEvent += HandleShowExchangePanelEvent;
+            _uiViewModel.OnShowExchangePopupEvent += HandleShowExchangePopupEvent;
         }
 
         private void OnDisable()
@@ -30,6 +33,12 @@ namespace Assets.Scripts
             _serverInteractionViewModel.OnReceivedSessionEvent -= HandleRecieveSession;
             _serverInteractionViewModel.OnLostSessionEvent -= HandleLostSessionEvent;
             _uiViewModel.OnShowExchangePanelEvent -= HandleShowExchangePanelEvent;
+            _uiViewModel.OnShowExchangePopupEvent -= HandleShowExchangePopupEvent;
+        }
+
+        private void HandleShowExchangePopupEvent(bool state)
+        {
+            _exchangePopupPanel.SetActive(state);
         }
 
         private void HandleShowExchangePanelEvent(bool state)

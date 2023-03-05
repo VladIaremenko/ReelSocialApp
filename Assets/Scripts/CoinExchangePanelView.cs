@@ -29,11 +29,12 @@ namespace Assets.Scripts
 
         private void HandleCoinValuesUpdates(CoinsValues item)
         {
-            _buyItemViews[0].RefreshView(item.Option1);
-            _buyItemViews[1].RefreshView(item.Option2);
-            _buyItemViews[2].RefreshView(item.Option3);
-            _buyItemViews[3].RefreshView(item.Option4);
-            _buyItemViews[4].RefreshView(item.Option5);
+            var list = item.GetList();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                _buyItemViews[i].UpdateView(list[i], i);
+            }
         }
 
         private void ClosePanel()

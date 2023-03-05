@@ -7,6 +7,7 @@ namespace Assets.Scripts
     {
         [SerializeField] private ExchangeViewModel _exchangeViewModel;
         [SerializeField] private ServerInteractionManagerSO _serverInteractionManager;
+        [SerializeField] private UIViewModel _uiViewModel;
 
         private CoinsValues _currentCoinsValues;
 
@@ -28,7 +29,8 @@ namespace Assets.Scripts
 
         private void HandleExchangeItemClick(int id)
         {
-            _serverInteractionManager.HandleExchangeItemClick(id);
+            _exchangeViewModel.CurrentExchangeData.Value = _currentCoinsValues.GetList()[id];
+            _uiViewModel.ShowExchangePopup();
         }
 
         public void HandleCoinsValuesUpdates(CoinsValues coinsValues)

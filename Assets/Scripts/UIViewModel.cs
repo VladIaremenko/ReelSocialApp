@@ -7,6 +7,7 @@ namespace Assets.Scripts
     public class UIViewModel : ScriptableObject
     {
         public event Action<bool> OnShowExchangePanelEvent = (x) => { };
+        public event Action<bool> OnShowExchangePopupEvent = (x) => { };
 
         public void ShowExchangePanel()
         {
@@ -16,6 +17,16 @@ namespace Assets.Scripts
         public void CloseExchangePanel()
         {
             OnShowExchangePanelEvent.Invoke(false);
+        }
+
+        public void ShowExchangePopup()
+        {
+            OnShowExchangePopupEvent.Invoke(true);
+        }
+
+        public void ClosePopupEvent()
+        {
+            OnShowExchangePopupEvent.Invoke(false);
         }
     }
 }

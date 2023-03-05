@@ -15,6 +15,8 @@ namespace Assets.Scripts
         [SerializeField] private TextMeshProUGUI _basicCurrencyText;
         [SerializeField] private Button _buyButton;
 
+        private int _id;
+
         private void Awake()
         {
             _buyButton.onClick.AddListener(HandleBuyItemClick);
@@ -22,14 +24,15 @@ namespace Assets.Scripts
 
         private void HandleBuyItemClick()
         {
-            _exchangeViewModel.HandleExchangeItemClick(transform.GetSiblingIndex() + 1);
+            _exchangeViewModel.HandleExchangeItemClick(_id);
         }
 
-        public void RefreshView(ExchangeData data)
+        public void UpdateView(ExchangeData data, int id)
         {
             _premCurrencyText.text = data.GoldPrice.ToString();
             _basicCurrencyText.text = data.Amount.ToString();
             _bonusText.text = $"+{data.Bonus} %";
+            _id = id;
 
             _bonusText.gameObject.SetActive(data.Bonus > 0);
 

@@ -33,6 +33,20 @@ namespace Assets.Scripts
 
         [JsonProperty("5")]
         public ExchangeData Option5 { get; set; }
+
+        public List<ExchangeData> GetList()
+        {
+            List<ExchangeData> list = new List<ExchangeData>
+            {
+                Option1,
+                Option2,
+                Option3,
+                Option4,
+                Option5
+            };
+
+            return list;
+        }
     }
 
     public class ExchangeDataResponce
