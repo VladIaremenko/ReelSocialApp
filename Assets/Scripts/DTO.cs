@@ -57,9 +57,9 @@ namespace Assets.Scripts
 
     public class PingRequestData
     {
-        public User user;
+        public CustomUser user;
 
-        public PingRequestData(User user)
+        public PingRequestData(CustomUser user)
         {
             this.user = user;
         }
@@ -293,6 +293,15 @@ namespace Assets.Scripts
         [JsonProperty("energy_remaining")]
         public int EnergyRemaining { get; set; }
     }
+
+    public class CustomUser
+    {
+        [JsonProperty("session_id")]
+        public string SessionId;
+
+        [JsonProperty("idx")]
+        public int ExchangeItemId;
+    } 
 }
 
 

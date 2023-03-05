@@ -97,7 +97,7 @@ namespace Assets.Scripts
                 }
                 else
                 {
-                    var msg = new PingRequestData(new User() { SessionId = _currentSessionID});
+                    var msg = new PingRequestData(new CustomUser() { SessionId = _currentSessionID});
    
                     var json = JsonConvert.SerializeObject(msg);
 
@@ -150,9 +150,11 @@ namespace Assets.Scripts
         {
             id++;
 
-            var msg = new PingRequestData(new User() { SessionId = _currentSessionID, ExchangeItemId = id });
+            var msg = new PingRequestData(new CustomUser() { SessionId = _currentSessionID, ExchangeItemId = id });
 
             var json = JsonConvert.SerializeObject(msg);
+
+            Debug.Log(json);
 
             using (UnityWebRequest webRequest = UnityWebRequest.Post(ExchangeApi, "POST"))
             {
@@ -164,6 +166,8 @@ namespace Assets.Scripts
 
                 if (webRequest.responseCode == succesResponceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
+                    Debug.Log(webRequest.downloadHandler.text);
+
                     _uiViewModel.ShowExchangeResultPopup(webRequest.downloadHandler.text);
                 }
             }
