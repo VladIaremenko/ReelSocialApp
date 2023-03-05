@@ -17,6 +17,7 @@ namespace Assets.Scripts
         [SerializeField] private Text _usernameText;
         [SerializeField] private Text _basicCurrencyText;
         [SerializeField] private Text _premiumCurrencyText;
+        [SerializeField] private RawImage _userPhoto;
 
         private void Awake()
         {
@@ -27,11 +28,19 @@ namespace Assets.Scripts
         private void OnEnable()
         {
             _userViewModel.CurrentUserData.AddListener(HandleUserDataChanged);
+            _userViewModel.CurrentUserTexture.AddListener(HandleTextureChanged);
         }
 
         private void OnDisable()
         {
             _userViewModel.CurrentUserData.RemoveListener(HandleUserDataChanged);
+            _userViewModel.CurrentUserTexture.RemoveListener(HandleTextureChanged);
+        }
+
+        private void HandleTextureChanged(Texture text)
+        {
+            Debug.Log(text.name);
+            _userPhoto.texture = text;
         }
 
         private void HandleUserDataChanged(User user)

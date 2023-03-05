@@ -3275,7 +3275,7 @@ GameObject:
   - component: {fileID: 7558702440603330872}
   - component: {fileID: 1823595617}
   m_Layer: 5
-  m_Name: LeftPanel.Screen
+  m_Name: RawImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3300,6 +3300,7 @@ MonoBehaviour:
   _usernameText: {fileID: 7558702440149363665}
   _basicCurrencyText: {fileID: 7558702439655993406}
   _premiumCurrencyText: {fileID: 7558702438914725406}
+  _userPhoto: {fileID: 6902571346955627621}
 --- !u!1 &1823599167
 GameObject:
   m_ObjectHideFlags: 0
@@ -4007,7 +4008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4676570944445656487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4549,14 +4550,13 @@ GameObject:
   - component: {fileID: 7558702438795717139}
   - component: {fileID: 7558702438795717137}
   - component: {fileID: 7558702438795717136}
-  - component: {fileID: 7558702438795717142}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7558702438795717139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4576,18 +4576,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7558702438795717142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7558702438795717138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f0e1f5a1bbce0245ba70bcad60a1987, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7558702438810648512
 RectTransform:
   m_ObjectHideFlags: 0

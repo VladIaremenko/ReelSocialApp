@@ -7,6 +7,7 @@ namespace Assets.Scripts
     public class UserViewModel : ScriptableObject
     {
         public ObservableVariable<User> CurrentUserData = new ObservableVariable<User>();
+        public ObservableVariable<Texture> CurrentUserTexture = new ObservableVariable<Texture>();
     }
 }
 

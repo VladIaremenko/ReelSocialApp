@@ -55,6 +55,11 @@ namespace Assets.Scripts
             _currentUserData = user;
             _userViewModel.CurrentUserData.Value = _currentUserData;
         }
+
+        public void HandleTextureDownloaded(Texture texture)
+        {
+            _userViewModel.CurrentUserTexture.Value = texture;
+        }
     }
 }
 

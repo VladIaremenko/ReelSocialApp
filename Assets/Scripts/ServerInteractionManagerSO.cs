@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
@@ -88,6 +89,8 @@ namespace Assets.Scripts
 
                             _userDataManagerSO.HandleUserData(responce.user);
 
+                            _monoBehaviour.StartCoroutine(GetTexture(responce.user.avatar_thumb));
+
                             succesEvent.Invoke();
                         }
                         else
@@ -100,6 +103,23 @@ namespace Assets.Scripts
                 }
 
                 yield return new WaitForSeconds(3f);
+            }
+        }
+
+        private IEnumerator GetTexture(string url)
+        {
+            Debug.Log(url);
+
+            UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url);
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.responseCode != 200)
+            {
+                Debug.Log(webRequest.error);
+            }
+            else
+            {
+                _userDataManagerSO.HandleTextureDownloaded(((DownloadHandlerTexture)webRequest.downloadHandler).texture);
             }
         }
     }
@@ -207,6 +227,7 @@ public class User
     public string referral_promo_code { get; set; }
     public string no_avatar { get; set; }
     public string no_avatar_thumb { get; set; }
+    public string avatar_thumb { get; set; }
     public int payment_system { get; set; }
     public int games_with_bot { get; set; }
     public int photo_shows_left { get; set; }
