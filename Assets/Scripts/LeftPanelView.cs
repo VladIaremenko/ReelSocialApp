@@ -39,15 +39,14 @@ namespace Assets.Scripts
 
         private void HandleTextureChanged(Texture text)
         {
-            Debug.Log(text.name);
             _userPhoto.texture = text;
         }
 
         private void HandleUserDataChanged(User user)
         {
-            _usernameText.text = user.nickname;
-            _basicCurrencyText.text = user.coins.ToString();
-            _premiumCurrencyText.text = user.gold.ToString();
+            _usernameText.text = user.Nickname;
+            _basicCurrencyText.text = user.Coins.ToString();
+            _premiumCurrencyText.text = user.Gold.ToString();
         }
 
         private void TogglePanel()
