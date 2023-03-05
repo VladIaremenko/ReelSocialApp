@@ -18,7 +18,7 @@ namespace Assets.Scripts
         [SerializeField] private ExchangeManagerSO _exchangeManagerSO;
         [SerializeField] private UserDataManagerSO _userDataManagerSO;
 
-        private const int succesResonceCode = 200;
+        private const int succesResponceCode = 200;
         private const string LoginApi = "https://yareel.com/src/a.php?email=<email>&pass=<pass>";
         private const string PingApi = "https://server.yareel.com/users/ping";
         private const string ExchangeApiConfig = "https://ucdn.yareel.com/bundles/config.json";
@@ -55,7 +55,7 @@ namespace Assets.Scripts
             {
                 yield return webRequest.SendWebRequest();
 
-                if (webRequest.responseCode == succesResonceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                if (webRequest.responseCode == succesResponceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
                     _currentSessionID = webRequest.downloadHandler.text;
                     succesEvent.Invoke();
@@ -74,7 +74,7 @@ namespace Assets.Scripts
             {
                 yield return webRequest.SendWebRequest();
 
-                if (webRequest.responseCode == succesResonceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                if (webRequest.responseCode == succesResponceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
                     var data = JsonConvert.DeserializeObject<ExchangeDataResponce>(webRequest.downloadHandler.text);
                     _exchangeManagerSO.HandleCoinsValuesUpdates(data.CoinsValues);
@@ -109,7 +109,7 @@ namespace Assets.Scripts
 
                         yield return webRequest.SendWebRequest();
 
-                        if (webRequest.responseCode == succesResonceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                        if (webRequest.responseCode == succesResponceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                         {
                             _serverInteractionViewModel.HandleSesseionReceived();
 
@@ -136,7 +136,7 @@ namespace Assets.Scripts
             UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url);
             yield return webRequest.SendWebRequest();
 
-            if (webRequest.responseCode != succesResonceCode)
+            if (webRequest.responseCode != succesResponceCode)
             {
                 Debug.Log(webRequest.error);
             }
@@ -162,7 +162,7 @@ namespace Assets.Scripts
 
                 yield return webRequest.SendWebRequest();
 
-                if (webRequest.responseCode == succesResonceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                if (webRequest.responseCode == succesResponceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
                     try
                     {
@@ -171,7 +171,6 @@ namespace Assets.Scripts
                     catch (Exception)
                     {
 
-                        throw;
                     }
                 }
                 else
