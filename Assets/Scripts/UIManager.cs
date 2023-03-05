@@ -4,19 +4,31 @@ namespace Assets.Scripts
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] private ServerInteractionViewModel _uiViewModel;
+        [Header("ViewModels")]
+        [SerializeField] private ServerInteractionViewModel _serverInteractionViewModel;
+        [SerializeField] private UIViewModel _uiViewModel;
+
+        [Header("Panels")]
         [SerializeField] private GameObject _loginPagePanel;
+        [SerializeField] private GameObject _exchangePanel;
 
         private void OnEnable()
         {
-            _uiViewModel.OnReceivedSessionEvent += HandleRecieveSession;
-            _uiViewModel.OnLostSessionEvent += HandleLostSessionEvent;
+            _serverInteractionViewModel.OnReceivedSessionEvent += HandleRecieveSession;
+            _serverInteractionViewModel.OnLostSessionEvent += HandleLostSessionEvent;
+            _uiViewModel.OnShowExchangePanelEvent += HandleShowExchangePanelEvent;
         }
 
         private void OnDisable()
         {
-            _uiViewModel.OnReceivedSessionEvent -= HandleRecieveSession;
-            _uiViewModel.OnLostSessionEvent -= HandleLostSessionEvent;
+            _serverInteractionViewModel.OnReceivedSessionEvent -= HandleRecieveSession;
+            _serverInteractionViewModel.OnLostSessionEvent -= HandleLostSessionEvent;
+            _uiViewModel.OnShowExchangePanelEvent -= HandleShowExchangePanelEvent;
+        }
+
+        private void HandleShowExchangePanelEvent()
+        {
+            _exchangePanel.SetActive(true);
         }
 
         private void HandleLostSessionEvent()
