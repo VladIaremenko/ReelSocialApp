@@ -37,6 +37,7 @@ namespace Assets.Scripts
             _monoBehaviour = monoBehaviour;
 
             _monoBehaviour.StartCoroutine(Ping(successEvent, errorEvent));
+            _monoBehaviour.StartCoroutine(GetExchangeData());
         }
 
         private IEnumerator LoginRequest(string uri, Action succesEvent, Action errorEvent)
@@ -67,6 +68,8 @@ namespace Assets.Scripts
                 if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
                     Debug.Log(webRequest.downloadHandler.text);
+                    var data = JsonConvert.DeserializeObject<ExchangeDataResponce>(webRequest.downloadHandler.text);
+                    Debug.Log(data.CoinsValues.Option3.Amount);
                 }
                 else
                 {

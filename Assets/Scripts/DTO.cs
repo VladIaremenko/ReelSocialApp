@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class _1
+    public class Data
     {
         [JsonProperty("bonus")]
         public int Bonus { get; set; }
@@ -16,70 +16,23 @@ namespace Assets.Scripts
         public int GoldPrice { get; set; }
     }
 
-    public class _2
-    {
-        [JsonProperty("bonus")]
-        public int Bonus { get; set; }
-
-        [JsonProperty("amount")]
-        public int Amount { get; set; }
-
-        [JsonProperty("gold_price")]
-        public int GoldPrice { get; set; }
-    }
-
-    public class _3
-    {
-        [JsonProperty("bonus")]
-        public int Bonus { get; set; }
-
-        [JsonProperty("amount")]
-        public int Amount { get; set; }
-
-        [JsonProperty("gold_price")]
-        public int GoldPrice { get; set; }
-    }
-
-    public class _4
-    {
-        [JsonProperty("bonus")]
-        public int Bonus { get; set; }
-
-        [JsonProperty("amount")]
-        public int Amount { get; set; }
-
-        [JsonProperty("gold_price")]
-        public int GoldPrice { get; set; }
-    }
-
-    public class _5
-    {
-        [JsonProperty("bonus")]
-        public int Bonus { get; set; }
-
-        [JsonProperty("amount")]
-        public int Amount { get; set; }
-
-        [JsonProperty("gold_price")]
-        public int GoldPrice { get; set; }
-    }
 
     public class CoinsValues
     {
         [JsonProperty("1")]
-        public _1 _1 { get; set; }
+        public Data Option1 { get; set; }
 
         [JsonProperty("2")]
-        public _2 _2 { get; set; }
+        public Data Option2 { get; set; }
 
         [JsonProperty("3")]
-        public _3 _3 { get; set; }
+        public Data Option3 { get; set; }
 
         [JsonProperty("4")]
-        public _4 _4 { get; set; }
+        public Data Option4 { get; set; }
 
         [JsonProperty("5")]
-        public _5 _5 { get; set; }
+        public Data Option5 { get; set; }
     }
 
     public class ExchangeDataResponce
