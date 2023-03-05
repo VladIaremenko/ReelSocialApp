@@ -14,6 +14,12 @@ namespace Coin.Assets.Misc
             set
             {
                 _value = value;
+
+                if (_value == null)
+                {
+                    return;
+                }
+
                 _onValueChanged?.Invoke(value);
             }
         }

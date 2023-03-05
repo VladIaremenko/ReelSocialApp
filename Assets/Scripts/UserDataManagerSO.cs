@@ -25,6 +25,10 @@ namespace Assets.Scripts
 
         public void Init()
         {
+            _currentUserData = null;
+            _userViewModel.CurrentUserData.Value = null;
+            _userViewModel.CurrentUserTexture.Value = null;
+
             _loginPanelViewModel.CurrentUsername.Value = _storageSO.Username;
             _loginPanelViewModel.CurrentPassword.Value = _storageSO.Password;
         }
