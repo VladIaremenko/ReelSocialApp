@@ -6,12 +6,29 @@ namespace Assets.Scripts
     public class ExchangeManagerSO : ScriptableObject
     {
         [SerializeField] private ExchangeViewModel _exchangeViewModel;
+        [SerializeField] private ServerInteractionManagerSO _serverInteractionManager;
+
         private CoinsValues _currentCoinsValues;
 
         public void Init()
         {
             _currentCoinsValues = null;
             _exchangeViewModel.CoinsValues.Value = null;
+        }
+
+        private void OnEnable()
+        {
+            _exchangeViewModel.HandleExchangeItemClickEvent += HandleExchangeItemClick;
+        }
+
+        private void OnDisable()
+        {
+            _exchangeViewModel.HandleExchangeItemClickEvent -= HandleExchangeItemClick;
+        }
+
+        private void HandleExchangeItemClick(int id)
+        {
+            _serverInteractionManager.HandleExchangeItemClick(id);
         }
 
         public void HandleCoinsValuesUpdates(CoinsValues coinsValues)

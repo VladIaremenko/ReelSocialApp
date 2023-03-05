@@ -1,13 +1,29 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
     public class ExchangePanelBuyItemView : MonoBehaviour
     {
+        [Header("ViewModels")]
+        [SerializeField] private ExchangeViewModel _exchangeViewModel;
+
+        [Header("UI")]
         [SerializeField] private TextMeshProUGUI _premCurrencyText;
         [SerializeField] private TextMeshProUGUI _bonusText;
         [SerializeField] private TextMeshProUGUI _basicCurrencyText;
+        [SerializeField] private Button _buyButton;
+
+        private void Awake()
+        {
+            _buyButton.onClick.AddListener(HandleBuyItemClick);
+        }
+
+        private void HandleBuyItemClick()
+        {
+            _exchangeViewModel.HandleExchangeItemClick(transform.GetSiblingIndex() + 1);
+        }
 
         public void RefreshView(ExchangeData data)
         {

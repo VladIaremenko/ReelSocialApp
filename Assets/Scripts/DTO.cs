@@ -90,6 +90,9 @@ namespace Assets.Scripts
         [JsonProperty("session_id")]
         public string SessionId;
 
+        [JsonProperty("idx")]
+        public int ExchangeItemId;
+
         [JsonProperty("energy")]
         public int Energy { get; set; }
 

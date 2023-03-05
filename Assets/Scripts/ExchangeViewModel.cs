@@ -1,4 +1,5 @@
 ﻿using Coin.Assets.Misc;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -7,6 +8,12 @@ namespace Assets.Scripts
     public class ExchangeViewModel : ScriptableObject
     {
         public ObservableVariable<CoinsValues> CoinsValues = new ObservableVariable<CoinsValues>();
+        public event Action<int> HandleExchangeItemClickEvent = (x) => { };
+
+        public void HandleExchangeItemClick(int id)
+        {
+            HandleExchangeItemClickEvent.Invoke(id);
+        }
     }
 }
 

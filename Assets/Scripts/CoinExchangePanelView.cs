@@ -22,7 +22,7 @@ namespace Assets.Scripts
             _exchangeViewModel.CoinsValues.AddListener(HandleCoinValuesUpdates);
         }
 
-        private void Disable()
+        private void OnDisable()
         {
             _exchangeViewModel.CoinsValues.RemoveListener(HandleCoinValuesUpdates);
         }

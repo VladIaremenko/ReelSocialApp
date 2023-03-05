@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: ExchangeManagerSO
   m_EditorClassIdentifier: 
   _exchangeViewModel: {fileID: 11400000, guid: dd87a0d210568e442a202b871c65cca6, type: 2}
+  _serverInteractionManager: {fileID: 11400000, guid: 420b33ff9242de5469208a3c0ede83ac,
+    type: 2}

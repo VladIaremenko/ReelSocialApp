@@ -13,13 +13,16 @@ namespace Assets.Scripts
     [CreateAssetMenu(fileName = "ServerInteractionManagerSO", menuName = "SO/Web/ServerInteractionManagerSO", order = 1)]
     public class ServerInteractionManagerSO : ScriptableObject
     {
+
         [SerializeField] private ServerInteractionViewModel _serverInteractionViewModel;
         [SerializeField] private ExchangeManagerSO _exchangeManagerSO;
         [SerializeField] private UserDataManagerSO _userDataManagerSO;
 
-        private readonly string LoginApi = "https://yareel.com/src/a.php?email=<email>&pass=<pass>";
-        private readonly string PingApi = "https://server.yareel.com/users/ping";
-        private readonly string ExchangeApi = "https://ucdn.yareel.com/bundles/config.json";
+        private const int succesResonceCode = 200;
+        private const string LoginApi = "https://yareel.com/src/a.php?email=<email>&pass=<pass>";
+        private const string PingApi = "https://server.yareel.com/users/ping";
+        private const string ExchangeApiConfig = "https://ucdn.yareel.com/bundles/config.json";
+        private const string ExchangeApi = "https://server.yareel.com/users/exchange_currency";
 
         private string _currentSessionID;
         private MonoBehaviour _monoBehaviour;
@@ -41,13 +44,18 @@ namespace Assets.Scripts
             _monoBehaviour.StartCoroutine(GetExchangeData());
         }
 
+        public void HandleExchangeItemClick(int id)
+        {
+            _monoBehaviour.StartCoroutine(HandleExchange(id));
+        }
+
         private IEnumerator LoginRequest(string uri, Action succesEvent, Action errorEvent)
         {
             using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
             {
                 yield return webRequest.SendWebRequest();
 
-                if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                if (webRequest.responseCode == succesResonceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
                     _currentSessionID = webRequest.downloadHandler.text;
                     succesEvent.Invoke();
@@ -62,11 +70,11 @@ namespace Assets.Scripts
 
         private IEnumerator GetExchangeData()
         {
-            using (UnityWebRequest webRequest = UnityWebRequest.Get(ExchangeApi))
+            using (UnityWebRequest webRequest = UnityWebRequest.Get(ExchangeApiConfig))
             {
                 yield return webRequest.SendWebRequest();
 
-                if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                if (webRequest.responseCode == succesResonceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
                     var data = JsonConvert.DeserializeObject<ExchangeDataResponce>(webRequest.downloadHandler.text);
                     _exchangeManagerSO.HandleCoinsValuesUpdates(data.CoinsValues);
@@ -101,7 +109,7 @@ namespace Assets.Scripts
 
                         yield return webRequest.SendWebRequest();
 
-                        if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                        if (webRequest.responseCode == succesResonceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                         {
                             _serverInteractionViewModel.HandleSesseionReceived();
 
@@ -128,13 +136,49 @@ namespace Assets.Scripts
             UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url);
             yield return webRequest.SendWebRequest();
 
-            if (webRequest.responseCode != 200)
+            if (webRequest.responseCode != succesResonceCode)
             {
                 Debug.Log(webRequest.error);
             }
             else
             {
                 _userDataManagerSO.HandleTextureDownloaded(((DownloadHandlerTexture)webRequest.downloadHandler).texture);
+            }
+        }
+
+        private IEnumerator HandleExchange(int id)
+        {
+            id = 0;
+
+            var msg = new PingRequestData(new User() { SessionId = _currentSessionID, ExchangeItemId = id });
+
+            var json = JsonConvert.SerializeObject(msg);
+
+            using (UnityWebRequest webRequest = UnityWebRequest.Post(ExchangeApi, "POST"))
+            {
+                webRequest.uploadHandler = (UploadHandler)new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
+                webRequest.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+                webRequest.SetRequestHeader("Content-Type", "application/json");
+
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.responseCode == succesResonceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
+                {
+                    try
+                    {
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
+                else
+                {
+                    _serverInteractionViewModel.HandleSessionLost();
+                    _currentSessionID = string.Empty;
+                }
             }
         }
     }
