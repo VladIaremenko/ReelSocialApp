@@ -15,5 +15,6 @@ MonoBehaviour:
   _storageSO: {fileID: 11400000, guid: d5d0194d5e9da874d9d6db60f84838b8, type: 2}
   _serverInteractionManagerSO: {fileID: 11400000, guid: 420b33ff9242de5469208a3c0ede83ac,
     type: 2}
+  _userViewModel: {fileID: 11400000, guid: b97ed8d4a4fc4394daf4f6f858149c8f, type: 2}
   _loginPanelViewModel: {fileID: 11400000, guid: b95f65c414151c149a11dc23e02a5a0b,
     type: 2}

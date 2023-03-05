@@ -13,6 +13,7 @@ namespace Assets.Scripts
     public class ServerInteractionManagerSO : ScriptableObject
     {
         [SerializeField] private ServerInteractionViewModel _serverInteractionViewModel;
+        [SerializeField] private UserDataManagerSO _userDataManagerSO;
 
         private readonly string LoginApi = "https://yareel.com/src/a.php?email=<email>&pass=<pass>";
         private readonly string PingApi = "https://server.yareel.com/users/ping";
@@ -83,11 +84,9 @@ namespace Assets.Scripts
                         {
                             _serverInteractionViewModel.HandleSesseionReceived();
 
-                            Debug.Log(webRequest.downloadHandler.text);
-
                             var responce = JsonConvert.DeserializeObject<PingResponceData>(webRequest.downloadHandler.text);
 
-                            Debug.Log(responce.user.login);
+                            _userDataManagerSO.HandleUserData(responce.user);
 
                             succesEvent.Invoke();
                         }

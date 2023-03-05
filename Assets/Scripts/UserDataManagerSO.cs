@@ -8,7 +8,7 @@ namespace Assets.Scripts
     {
         [SerializeField] private StorageSO _storageSO;
         [SerializeField] private ServerInteractionManagerSO _serverInteractionManagerSO;
-
+        [SerializeField] protected UserViewModel _userViewModel;
         [SerializeField] private LoginPanelViewModel _loginPanelViewModel;
 
         private void OnDisable()
@@ -46,6 +46,11 @@ namespace Assets.Scripts
         private void HandleLoginSucces()
         {
             _loginPanelViewModel.CurrentLoginMessage.Value = "Success";
+        }
+
+        public void HandleUserData(User user)
+        {
+            _userViewModel.CurrentUserData.Value = user;
         }
     }
 }
