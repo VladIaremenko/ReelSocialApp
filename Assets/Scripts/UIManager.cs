@@ -12,6 +12,12 @@ namespace Assets.Scripts
         [SerializeField] private GameObject _loginPagePanel;
         [SerializeField] private GameObject _exchangePanel;
 
+        private void Awake()
+        {
+            _exchangePanel.SetActive(false);
+            _loginPagePanel.SetActive(true);
+        }
+
         private void OnEnable()
         {
             _serverInteractionViewModel.OnReceivedSessionEvent += HandleRecieveSession;
@@ -26,9 +32,9 @@ namespace Assets.Scripts
             _uiViewModel.OnShowExchangePanelEvent -= HandleShowExchangePanelEvent;
         }
 
-        private void HandleShowExchangePanelEvent()
+        private void HandleShowExchangePanelEvent(bool state)
         {
-            _exchangePanel.SetActive(true);
+            _exchangePanel.SetActive(state);
         }
 
         private void HandleLostSessionEvent()
