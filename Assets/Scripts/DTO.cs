@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Data
+    public class ExchangeData
     {
         [JsonProperty("bonus")]
         public int Bonus { get; set; }
@@ -20,19 +20,19 @@ namespace Assets.Scripts
     public class CoinsValues
     {
         [JsonProperty("1")]
-        public Data Option1 { get; set; }
+        public ExchangeData Option1 { get; set; }
 
         [JsonProperty("2")]
-        public Data Option2 { get; set; }
+        public ExchangeData Option2 { get; set; }
 
         [JsonProperty("3")]
-        public Data Option3 { get; set; }
+        public ExchangeData Option3 { get; set; }
 
         [JsonProperty("4")]
-        public Data Option4 { get; set; }
+        public ExchangeData Option4 { get; set; }
 
         [JsonProperty("5")]
-        public Data Option5 { get; set; }
+        public ExchangeData Option5 { get; set; }
     }
 
     public class ExchangeDataResponce

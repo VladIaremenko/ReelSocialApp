@@ -14,6 +14,7 @@ namespace Assets.Scripts
     public class ServerInteractionManagerSO : ScriptableObject
     {
         [SerializeField] private ServerInteractionViewModel _serverInteractionViewModel;
+        [SerializeField] private ExchangeManagerSO _exchangeManagerSO;
         [SerializeField] private UserDataManagerSO _userDataManagerSO;
 
         private readonly string LoginApi = "https://yareel.com/src/a.php?email=<email>&pass=<pass>";
@@ -30,13 +31,13 @@ namespace Assets.Scripts
             _monoBehaviour.StartCoroutine(LoginRequest(loginStr, succesEvent, errorEvent));
         }
 
-        public void Init(MonoBehaviour monoBehaviour, Action successEvent, Action errorEvent)
+        public void Init(MonoBehaviour monoBehaviour)
         {
             _currentSessionID = string.Empty;
 
             _monoBehaviour = monoBehaviour;
 
-            _monoBehaviour.StartCoroutine(Ping(successEvent, errorEvent));
+            _monoBehaviour.StartCoroutine(Ping());
             _monoBehaviour.StartCoroutine(GetExchangeData());
         }
 
@@ -67,9 +68,8 @@ namespace Assets.Scripts
 
                 if (webRequest.responseCode == 200 && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
-                    Debug.Log(webRequest.downloadHandler.text);
                     var data = JsonConvert.DeserializeObject<ExchangeDataResponce>(webRequest.downloadHandler.text);
-                    Debug.Log(data.CoinsValues.Option3.Amount);
+                    _exchangeManagerSO.HandleCoinsValuesUpdates(data.CoinsValues);
                 }
                 else
                 {
@@ -78,7 +78,7 @@ namespace Assets.Scripts
             }
         }
 
-        private IEnumerator Ping(Action succesEvent, Action errorEvent)
+        private IEnumerator Ping()
         {
             while (true)
             {
@@ -109,15 +109,12 @@ namespace Assets.Scripts
 
                             _userDataManagerSO.HandleUserData(responce.User);
 
-                            _monoBehaviour.StartCoroutine(GetTexture(responce.User.AvatarThumb));
-
-                            succesEvent.Invoke();
+                            _monoBehaviour.StartCoroutine(GetTexture(responce.User.AvatarThumb));  
                         }
                         else
                         {
                             _serverInteractionViewModel.HandleSessionLost();
                             _currentSessionID = string.Empty;
-                            errorEvent.Invoke();
                         }
                     }
                 }
