@@ -26,6 +26,7 @@ namespace Assets.Scripts
 
         private string _currentSessionID;
         private MonoBehaviour _monoBehaviour;
+        private Coroutine _pingCoroutine;
 
         public void TryLogin(string username, string password, Action succesEvent, Action errorEvent)
         {
@@ -40,8 +41,19 @@ namespace Assets.Scripts
 
             _monoBehaviour = monoBehaviour;
 
-            _monoBehaviour.StartCoroutine(Ping());
+            StartPinging();
+
             _monoBehaviour.StartCoroutine(GetExchangeData());
+        }
+
+        private void StartPinging()
+        {
+            if (_pingCoroutine != null)
+            {
+                _monoBehaviour.StopCoroutine(_pingCoroutine);
+            }
+
+            _pingCoroutine = _monoBehaviour.StartCoroutine(Ping());
         }
 
         public void HandleExchangeItem(int id)
@@ -81,7 +93,7 @@ namespace Assets.Scripts
                 }
                 else
                 {
-                    
+                    Debug.Log("Error receiving exchange data");
                 }
             }
         }
@@ -117,7 +129,7 @@ namespace Assets.Scripts
 
                             _userDataManagerSO.HandleUserData(responce.User);
 
-                            _monoBehaviour.StartCoroutine(GetTexture(responce.User.AvatarThumb));  
+                            _monoBehaviour.StartCoroutine(GetTexture(responce.User.AvatarThumb));
                         }
                         else
                         {
@@ -127,7 +139,7 @@ namespace Assets.Scripts
                     }
                 }
 
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(100f);
             }
         }
 
@@ -154,8 +166,6 @@ namespace Assets.Scripts
 
             var json = JsonConvert.SerializeObject(msg);
 
-            Debug.Log(json);
-
             using (UnityWebRequest webRequest = UnityWebRequest.Post(ExchangeApi, "POST"))
             {
                 webRequest.uploadHandler = (UploadHandler)new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
@@ -174,6 +184,7 @@ namespace Assets.Scripts
                     }
                     else
                     {
+                        StartPinging();
                         message = "Success";
                     }
                 }
