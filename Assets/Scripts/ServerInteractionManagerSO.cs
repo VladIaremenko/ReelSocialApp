@@ -164,12 +164,25 @@ namespace Assets.Scripts
 
                 yield return webRequest.SendWebRequest();
 
+                var message = string.Empty;
+
                 if (webRequest.responseCode == succesResponceCode && !string.IsNullOrEmpty(webRequest.downloadHandler.text))
                 {
-                    Debug.Log(webRequest.downloadHandler.text);
-
-                    _uiViewModel.ShowExchangeResultPopup(webRequest.downloadHandler.text);
+                    if (webRequest.downloadHandler.text.Contains("error"))
+                    {
+                        message = "Something went wrong";
+                    }
+                    else
+                    {
+                        message = "Success";
+                    }
                 }
+                else
+                {
+                    message = "Something went wrong";
+                }
+
+                _uiViewModel.ShowExchangeResultPopup(message);
             }
         }
     }
