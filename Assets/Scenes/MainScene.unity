@@ -6625,8 +6625,8 @@ MonoBehaviour:
   _exchanePanelButton: {fileID: 7558702440087297464}
   _usernameText: {fileID: 7558702440149363665}
   _ageText: {fileID: 7558702440319431567}
-  _basicCurrencyText: {fileID: 7558702438914725406}
-  _premiumCurrencyText: {fileID: 7558702439655993406}
+  _basicCurrencyText: {fileID: 7558702439655993406}
+  _premiumCurrencyText: {fileID: 7558702438914725406}
   _userPhoto: {fileID: 6902571346955627621}
 --- !u!1 &1823599167
 GameObject:

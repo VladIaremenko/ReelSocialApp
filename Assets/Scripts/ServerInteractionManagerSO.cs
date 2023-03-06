@@ -180,7 +180,7 @@ namespace Assets.Scripts
                 {
                     if (webRequest.downloadHandler.text.Contains("error"))
                     {
-                        message = "Something went wrong";
+                        message = webRequest.downloadHandler.text;
                     }
                     else
                     {
