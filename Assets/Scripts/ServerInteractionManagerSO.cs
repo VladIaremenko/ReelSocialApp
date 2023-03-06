@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Net;
 using System.Text;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -109,8 +106,8 @@ namespace Assets.Scripts
                 }
                 else
                 {
-                    var msg = new PingRequestData(new CustomUser() { SessionId = _currentSessionID});
-   
+                    var msg = new PingRequestData(new CustomUser() { SessionId = _currentSessionID });
+
                     var json = JsonConvert.SerializeObject(msg);
 
                     using (UnityWebRequest webRequest = UnityWebRequest.Post(PingApi, "POST"))
